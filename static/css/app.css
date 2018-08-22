@@ -1,0 +1,18 @@
+.navbar-brand {
+  font-family: 'Open Sans', sans-serif;
+}
+
+
+	
+.opac-grey{
+    opacity: 0.3;
+    filter: alpha(opacity=30); /* msie */
+    background-color: #000;
+}
+
+.catsandstars {
+  background-image:
+      url("https://mdn.mozillademos.org/files/11991/startransparent.gif"), 
+      url("https://mdn.mozillademos.org/files/7693/catfront.png");
+  background-color: transparent;
+}

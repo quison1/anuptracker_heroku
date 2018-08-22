@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% load humanize %}
+
+{% block title %}
+  {{ board.name }} - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<ol class="breadcrumb my-4">
+  <!-- <li class="breadcrumb-item"><a href="{% url 'home' %}">Boards</a></li> -->
+  <li class="breadcrumb-item active">A community-based parking tracker</li>
+</ol>
+
+{% if user.is_superuser %}
+  <div class="mb-4">
+    <a href="{% url 'new_topic' board.pk %}" class="btn btn-primary">Create parking post</a>
+  </div>
+{% else %}
+{% endif %}
+<strong>Latest updates (click to send your update):</strong>
+ <div class="list-group">
+  {% for topic in topics %}
+    {% url 'reply_topic' topic.board.pk topic.pk as topic_url %}
+		{% with post=topic.get_last_post %}
+		<a href="{{ topic_url }}" class="list-group-item list-group-item-action text-{{ post.get_colour }}">{{ topic.subject }} <small>has</small>
+			<strong>{{ post.message }}</strong>
+			<small> spotted {{ topic.last_updated|naturaltime }}.</small>
+		</a>
+		{% endwith %}
+  {% endfor %}
+ </div>
+  
+  {% include 'includes/pagination.html' %}
+
+{% endblock %}
+
+<!--
+		<li class="list-group-item"><a href="{{ topic_url }}">{{ topic.subject }}</a> <small>has</small>
+			<strong>
+			{% with post=topic.get_last_post %}
+              {% if post %}
+				{{ post.message }}
+              {% else %}
+                <small class="text-muted">
+                  <em>No updates yet</em>
+                </small>
+              {% endif %}
+            {% endwith %}
+			</strong>
+		<small> spotted at </small>{{ topic.last_updated|naturaltime }}.</small></li>
+		-->

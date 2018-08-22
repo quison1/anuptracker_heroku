@@ -1,0 +1,23 @@
+droplet name: anuptracker
+ubuntu login
+root
+wl
+
+application user: boards
+pw: wl
+
+
+installed postgres sql
+database user = u_boards
+pw = wl
+
+db = django_boards
+
+go inside boards
+home/boards/anuptracker/.env
+
+sudo su - boards
+
+
+python superuser:
+admin, admin123wl

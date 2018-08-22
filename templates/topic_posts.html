@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% load humanize %}
+
+{% block title %}{{ topic.subject }}{% endblock %}
+
+{% block content %}
+{% include 'includes/contentheader.html' %}
+
+  <div class="mb-4">
+    <a href="{% url 'reply_topic' topic.board.pk topic.pk %}" class="btn btn-success" role="button">Post an update</a>
+	{% if user.is_superuser %}	
+	<a href="{% url 'edit_topic' topic.board.pk topic.pk %}" class="btn btn-danger" role="button">Edit parking lot</a>
+	{% endif %}
+  </div>
+<strong>Latest updates:</strong>
+  <ul class="list-group">
+  {% for post in topic.get_last_ten_posts %}
+	{% if forloop.first %}
+	{% endif %}
+		<li class="list-group-item">{{ post }}<small> spotted at </small>{{ post.created_at|naturaltime }} <small>by {{ post.created_by.username }}.</small></li>
+  {% endfor %}
+  </ul>
+  
+
+  {% include 'includes/pagination.html' %}
+
+{% endblock %}
